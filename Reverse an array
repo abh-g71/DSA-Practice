@@ -1,0 +1,10 @@
+void reverseArray(vector<int> &arr , int m) {
+    // Write your code here
+    int n = arr.size()-1;
+    int i = m+1;
+    while(i < n){
+        swap(arr[i],arr[n]);
+        i++;
+        n--;
+    }
+}

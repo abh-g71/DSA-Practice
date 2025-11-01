@@ -1,0 +1,17 @@
+//Solution of leetcode 53
+
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int curr_Sum = nums[0];
+        int max_Sum = nums[0];
+
+        for(int i = 1;i<nums.size();i++){
+            curr_Sum = max(nums[i],curr_Sum+nums[i]);
+            max_Sum = max(curr_Sum,max_Sum);
+        }
+
+        return max_Sum;
+        
+    }
+}

@@ -1,0 +1,28 @@
+// Leetcode solution 125
+
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        vector<char> ans;
+        
+        // Filter only alphanumeric and convert to lowercase
+        for(auto i : s){
+            if(isalpha(i) || isdigit(i)){
+                ans.push_back(tolower(i));
+            }
+        }
+        
+        int start = 0;
+        int end = ans.size() - 1;
+        
+        while(start < end){
+            if(ans[start] != ans[end]){
+                return false;
+            }
+            start++;
+            end--;
+        }
+        
+        return true;
+    }
+};

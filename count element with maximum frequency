@@ -1,0 +1,24 @@
+// 3005 leetcode solution 
+class Solution {
+public:
+    int maxFrequencyElements(vector<int>& nums) {
+        unordered_map<int ,int>freq;
+
+        for(auto i : nums){
+            freq[i]++;
+        }
+        int maxm = INT_MIN;
+        for(auto num : freq){
+            if(maxm < num.second){
+                maxm = num.second;
+            }
+        }
+        int count = 0;
+        for(auto it : freq){
+            if(maxm == it.second){
+                count++;
+            }
+        }
+        return maxm * count;
+    }
+};

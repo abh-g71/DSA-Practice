@@ -1,0 +1,69 @@
+// Solution of Count Derangements(Leetcode,
+
+// Using recursion And Memoization
+
+#include<bits/stdc++.h>
+#define MOD 1000000007
+
+long long int solveMem(int n , vector<long long int> &dp){
+     if(n==0 ){
+        return 1;
+    }
+    if(n==1){
+        return 0;
+    }
+    if(n==2 ){
+        return 1;
+    }
+    if(dp[n] != -1){
+        return dp[n];
+    }
+
+     dp[n] = ((n - 1) *
+            ( (solveMem(n - 1, dp) + solveMem(n - 2, dp)) % MOD )
+            ) % MOD;
+    
+    
+       return dp[n];
+    
+}
+
+
+long long int countDerangements(int n) {
+     vector<long long int>dp(n+1,-1);
+     int ans = solveMem(n,dp);
+     return ans;
+}
+
+// Using Tabulation and Space optimization;
+
+#include<bits/stdc++.h>
+#define MOD 1000000007
+
+
+long long int solveTab(int n ){
+     if(n==0 ){
+        return 1;
+    }
+    long long int prev1 = 1;
+    long long int prev2 = 0;
+   
+
+   for(int i = 3 ; i <= n ;i++){
+       long long int first = prev1 % MOD;
+       long long int second = prev2 % MOD;
+       long long int sum = (first + second) % MOD;
+
+       long long int ans = ((i-1) * sum) % MOD;
+       prev2 = prev1;
+       prev1 = ans;
+       
+   }
+   return prev1;
+    
+}
+
+long long int countDerangements(int n) {
+   
+    return solveTab(n);
+}

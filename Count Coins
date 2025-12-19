@@ -1,0 +1,69 @@
+// Solution of countCoins(Leetcode ,322)
+
+// using Recursion + Memoization
+
+class Solution {
+public:
+    int solveMem(vector<int>& coins, int amount,vector<int> &dp){
+        if(amount == 0){
+            return 0;
+        }
+        if(amount < 0 ){
+            return -1;
+        }
+        if(dp[amount] != -1){
+            return dp[amount];
+        }
+        int mini = INT_MAX;
+
+        for(int i = 0 ; i < coins.size();i++){
+            int ans = solveMem(coins,amount-coins[i],dp);
+
+            if(ans != -1 && ans != INT_MAX){
+                mini = min(ans+1,mini);
+            }
+        }
+        dp[amount] = mini;
+        return mini;
+    }
+    int coinChange(vector<int>& coins, int amount) {
+        
+        vector<int>dp(amount+1,-1);
+        int ans = solveMem(coins,amount,dp);
+
+        if(ans == INT_MAX){
+            return -1;
+        }
+        else{
+            return ans;
+        }
+    }
+};
+
+
+// Using Tabulation methhod
+class Solution {
+public:
+    int solveTab(vector<int>& coins, int amount){
+        vector<int>dp(amount+1 , INT_MAX);
+
+        dp[0] = 0;
+
+        for(int i = 1 ; i <= amount; i++){
+
+            for(int j = 0 ; j < coins.size(); j++){
+                if(i-coins[j] >= 0 && dp[i-coins[j]] != INT_MAX){
+                    dp[i] = min(dp[i],1+dp[i-coins[j]]);
+                }
+            }
+        }
+        if(dp[amount] == INT_MAX){
+            return -1;
+        }
+        return dp[amount];
+    }
+    int coinChange(vector<int>& coins, int amount) {
+        return solveTab(coins,amount);
+        
+    }
+};

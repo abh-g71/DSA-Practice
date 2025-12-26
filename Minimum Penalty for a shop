@@ -1,0 +1,36 @@
+// Solution of Minimum Penalty for a shop ( leetcode 2483)
+
+class Solution {
+public:
+    int bestClosingTime(string customers) {
+        int penalty = 0 ;
+        int n = customers.size();
+        int result_time ;
+        int mini = INT_MAX;
+
+        // penalty when closing time is 0
+        for(auto c : customers){
+            if(c == 'Y')
+                penalty++;
+        }
+
+        // Now checking for all closing time
+        for(int i = 0 ; i <= n ; i++){
+            if(penalty < mini){
+                mini = penalty;
+                result_time = i ;
+            }
+
+            if(i < n){
+                if(customers[i] == 'Y'){
+                    penalty--;
+                }
+                else{
+                    penalty++;
+                }
+            }
+        }
+
+        return result_time;  
+    }
+};

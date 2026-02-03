@@ -4,8 +4,7 @@ public:
         int a =  -1;
         int b = -1;
         int n = nums.size() ;
-        int c = 0 ; 
-        vector<int>ans(2,-1);
+       
 
         for(int i = 0 ; i < nums.size() ; i++){
             

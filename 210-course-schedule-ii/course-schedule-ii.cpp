@@ -1,49 +1,47 @@
 class Solution {
-public: 
-    bool dfs(int u, vector<vector<int>> &adj,vector<bool> &vis,vector<bool> &recStack,vector<int> &ans){
-        
-        if(recStack[u]) return true;
-        if(vis[u]) return false;
+public:
+    bool dfs(int node , vector<int> &topo, vector<int>&vis,vector<vector<int>>& adj){
+        vis[node] = 1;
 
-        vis[u] = true;
-        recStack[u] = true;
+        for(auto v : adj[node]){
 
-        for(auto neigh : adj[u]){
-            if(dfs(neigh,adj,vis,recStack,ans)){
-                return true;
+            if(vis[v] == 1){
+                    return true;
+                }
+            if(vis[v] == 0){
+                if(dfs(v,topo,vis,adj)){
+                    return true;
+                }
+                
+                
             }
         }
-        recStack[u] = false;
-         ans.push_back(u);
+        vis[node] = 2;
+        topo.push_back(node);
         return false;
     }
-    vector<int> findOrder(int n, vector<vector<int>>& edges) {
-        vector<vector<int>>adj(n);
-
-        for(auto edge : edges){
-            int u = edge[0];
-            int v = edge[1];
-
-            adj[v].push_back(u);
-        }
-
-        vector<int>ans;
-        vector<bool>vis(n,false);
-        vector<bool>recStack(n,false);
-        bool possible = true;
-
-        for(int i = 0 ; i < n ; i++){
+    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+        
+        vector<vector<int>>adj(numCourses);
+        for(int i = 0 ; i  < prerequisites.size(); i++){
            
-            if(!vis[i]){
-                if(dfs(i,adj,vis,recStack,ans)){
-                    possible = false;
+                int u = prerequisites[i][0];
+                int v = prerequisites[i][1];
+
+                adj[v].push_back(u);
+            
+        }
+        vector<int>vis(numCourses,0);
+        vector<int>topo;
+
+        for(int i = 0 ; i < numCourses ; i++){
+            if(vis[i] == 0){
+                if(dfs(i,topo,vis,adj)){
+                    return {};
                 }
             }
         }
-        if(possible){
-            reverse(ans.begin(),ans.end());
-            return ans;
-        }
-        return {};
+        reverse(topo.begin(),topo.end());
+        return topo;
     }
 };

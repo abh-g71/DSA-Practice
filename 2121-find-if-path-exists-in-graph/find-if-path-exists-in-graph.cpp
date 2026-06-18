@@ -1,13 +1,16 @@
 class Solution {
 public:
-    bool dfs(int node, int dest, vector<vector<int>> &adj,vector<int> &vis){
-        if(node==dest){
+
+    bool dfs(int src,int dest, vector<vector<int>> &adj,vector<int>& vis){
+        if(src == dest){
             return true;
         }
-        vis[node] = 1;
-        for(int &nei : adj[node]){
-            if(!vis[nei]){
-                if(dfs(nei,dest,adj,vis)){
+        vis[src] = 1;
+
+        for(auto v : adj[src]){
+            if(!vis[v]){
+                if(
+                dfs(v,dest,adj,vis)){
                     return true;
                 }
             }
@@ -16,11 +19,17 @@ public:
     }
     bool validPath(int n, vector<vector<int>>& edges, int source, int destination) {
         vector<vector<int>>adj(n);
-        for(auto &e:edges){
-            adj[e[0]].push_back(e[1]);
-            adj[e[1]].push_back(e[0]);
+        
+        for(int i = 0 ;  i < edges.size(); i++){
+            int u = edges[i][0];
+            int v = edges[i][1];
+
+            adj[v].push_back(u);
+            adj[u].push_back(v);
         }
         vector<int>vis(n,0);
+        
+
         return dfs(source,destination,adj,vis);
     }
 };

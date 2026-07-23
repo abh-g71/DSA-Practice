@@ -12,7 +12,7 @@ public:
         for(int i = 0 ; i <= n ; i++) dp[i][0] = true;
 
         for(int i = 1; i <= n ; i++){
-            for(int sum = 0 ; sum <= totalsum ; sum++){
+            for(int sum = 1 ; sum <= totalsum ; sum++){
                 bool notTake = dp[i-1][sum];
                 bool take = false;
 

@@ -13,7 +13,7 @@ public:
             }else{
                 sum++;
             }
-            if(mp.find(sum) != mp.end()){
+            if(mp.count(sum)){
                 ans = max(ans,i-mp[sum]);
             }else{
                 mp[sum] = i;

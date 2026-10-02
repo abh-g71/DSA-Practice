@@ -6,8 +6,8 @@ public:
         int maxLength = 0;
         int zeroes = 0;
 
-        for(int i = 0 ; i < n ; i++){
-            if(nums[i] == 0){
+        for(int right = 0 ; right < n ; right++){
+            if(nums[right] == 0){
                 zeroes++;
             }
 
@@ -17,7 +17,7 @@ public:
                 }
                 left++;
             }
-            maxLength = max(maxLength,i-left+1);
+            maxLength = max(maxLength,right-left+1);
         }
         return maxLength;
     }

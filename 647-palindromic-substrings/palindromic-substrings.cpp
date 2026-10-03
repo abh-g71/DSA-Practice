@@ -12,6 +12,7 @@ public:
                 while(l < r){
                     if(s[l] != s[r]){
                         palindrome = false;
+                        break;
                     }
                     l++;
                     r--;
